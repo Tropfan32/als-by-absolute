@@ -1,0 +1,39 @@
+---
+title: AdaptivePathPlanner
+---
+
+# AdaptivePathPlanner
+
+Bridges `ImpactDetector`, Pedro `Follower`, and a recovery `targetPose`. Idle `update()` is a few boolean / nanoTime checks.
+
+## Quadratic Bézier
+
+On an accepted replan:
+
+| Point | Source |
+| --- | --- |
+| `P0` | `follower.getPose()` after the shove |
+| `P1` | Along **linear velocity** (unit vector × remaining distance × 0.35). If speed &lt; 0.5 in/s, use **heading** |
+| `P2` | `targetPose` |
+
+Heading uses `Path.setLinearHeadingInterpolation(start, target)`. Injection is:
+
+```java
+follower.followPath(recovery, holdEnd);
+```
+
+Pedro `followPath` is **non-blocking**: it swaps the active curve and returns. Drive continues on the next `follower.update()`.
+
+## Safety gates (consume latch, do not inject)
+
+- `enabled == false`
+- `targetPose == null`
+- Cooldown still active (default **300 ms** after a successful inject)
+- Remaining distance &lt; `minReplanDistanceInches` (default 1 in)
+- Geofence: sampled Bézier still clips a restricted zone after `P_1` is pushed out → skip inject
+
+:::info forceReplan
+`forceReplan()` builds the same curve **without** reading the detector. Used by gamepad **X** on the test OpMode and for bench tests.
+:::
+
+Full method list: [API: AdaptivePathPlanner](../api/adaptive-path-planner.mdx).

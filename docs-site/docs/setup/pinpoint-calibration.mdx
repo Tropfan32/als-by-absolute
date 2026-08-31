@@ -1,0 +1,38 @@
+---
+title: Pinpoint calibration
+---
+
+# Pinpoint calibration
+
+AACS reads pose, velocity, and acceleration from Pedro’s `Follower`, which is built with `PinpointConstants` in `Constants.java`.
+
+## Offsets in this repo
+
+```java
+public static PinpointConstants localizerConstants = new PinpointConstants()
+        .strafePodX(-120.0)
+        .forwardPodY(-150.0)
+        .distanceUnit(DistanceUnit.MM)
+        .hardwareMapName("pinpoint")
+        .encoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD)
+        .forwardEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD)
+        .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD);
+```
+
+`strafePodX` / `forwardPodY` are pod positions relative to the tracking point (same idea as `GoBildaPinpointDriver.setOffsets`). **−120 mm, −150 mm** are this chassis’s values — retune if you move pods.
+
+## Procedure
+
+1. Confirm the I2C device name is `pinpoint` on the Hub.
+2. Robot **stationary** → run any OpMode `init` that constructs the follower (IMU settle / `resetPosAndIMU` happens inside Pedro’s localizer setup).
+3. Deploy Pedro **Tuning** → Localization:
+   - Offsets tuner if both offsets were zeroed for the procedure
+   - Forward / lateral / turn tuners for encoder scale and heading
+4. Paste new numbers back into `localizerConstants`.
+5. Set `follower.setStartingPose(...)` to the **actual** field tile you place on (Pedro inches).
+
+:::note
+Do not `hardwareMap.get(GoBildaPinpointDriver.class)` and `update()` it yourself in the same loop as `follower.update()` — you would double-pump the device. Let Pedro own the Pinpoint.
+:::
+
+Pedro’s own guide: [Pinpoint localizer](https://pedropathing.com/docs/pathing/tuning/localization/pinpoint).

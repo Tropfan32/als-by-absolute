@@ -1,0 +1,43 @@
+---
+title: Tuning guide
+---
+
+# Tuning guide
+
+Tune **Pedro first** (localization, then translational / heading / drive PID). AACS cannot save a follower that cannot hold a line.
+
+## ImpactDetector
+
+| Symptom | Change |
+| --- | --- |
+| False triggers on launch / strafe | Raise `setThresholdG` (try 1.8–2.2) or `setSustainWindowMs` (70–100) |
+| Real hits ignored | Lower G threshold or shorten the window (not below ~30 ms at 50 Hz) |
+| Hits during planned braking | Use `update(ax, ay, expectedAx, expectedAy)` from path accel |
+
+```java
+ImpactDetector detector = new ImpactDetector(1.8); // g
+detector.setSustainWindowMs(70);
+```
+
+Log `getLastHorizontalAccelG()` on the DS while you drive. Set the threshold **above** peak vibration and **below** a real T-bone.
+
+## AdaptivePathPlanner
+
+| Symptom | Change |
+| --- | --- |
+| Path rebuilds every cycle while touching | Increase `setCooldownMs` (400–500) |
+| Recovery jerks sideways | Lower `setControlPointFraction` (0.2–0.3) or check velocity sign |
+| Replan skipped next to the goal | `setMinReplanDistanceInches` |
+| Need to hold the end pose | `setHoldEnd(true)` (default) |
+
+## FoulPreventionBox
+
+| Symptom | Change |
+| --- | --- |
+| Recovery hugs walls / clips tiles | Increase `setClearanceInches` (robot half-width + margin) |
+| Legal shortcuts rejected | Shrink AABBs; they should match **foul** regions, not scoring areas |
+| Start and goal separated by a fat box | AACS will skip; split Auto into two legal paths |
+
+:::caution Match units
+Field and zones are **Pedro inches**. Pinpoint offsets in `Constants` are **millimeters**. Accel into the detector is **m/s²**. Mixing these is the usual “it teleports / never triggers” bug.
+:::

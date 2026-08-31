@@ -1,0 +1,122 @@
+/**
+ * AACS brand system — apply globally so docs, navbar, and landing share one canvas.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --aacs-bg: #05040f;
+  --aacs-surface: #0a081c;
+  --aacs-border: #1e1b4b;
+  --aacs-border-glow: rgba(139, 92, 246, 0.2);
+  --aacs-primary: #8b5cf6;
+  --aacs-secondary: #3b82f6;
+  --aacs-chart: #a78bfa;
+  --aacs-text: #eef2ff;
+  --aacs-muted: #9ca3af;
+  --aacs-primary-glow: rgba(139, 92, 246, 0.5);
+
+  --ifm-color-primary: #8b5cf6;
+  --ifm-color-primary-dark: #7c4eef;
+  --ifm-color-primary-darker: #6d3ee6;
+  --ifm-color-primary-darkest: #5b21b6;
+  --ifm-color-primary-light: #9d72f8;
+  --ifm-color-primary-lighter: #a78bfa;
+  --ifm-color-primary-lightest: #c4b5fd;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(139, 92, 246, 0.12);
+  --ifm-font-family-base: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --ifm-heading-font-family: Inter, system-ui, sans-serif;
+  --ifm-heading-font-weight: 800;
+  --ifm-font-color-base: #eef2ff;
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #8b5cf6;
+  --ifm-color-primary-dark: #7c4eef;
+  --ifm-color-primary-darker: #6d3ee6;
+  --ifm-color-primary-darkest: #5b21b6;
+  --ifm-color-primary-light: #a78bfa;
+  --ifm-color-primary-lighter: #b39afa;
+  --ifm-color-primary-lightest: #c4b5fd;
+  --ifm-background-color: #05040f;
+  --ifm-background-surface-color: #0a081c;
+  --ifm-navbar-background-color: rgba(5, 4, 15, 0.82);
+  --ifm-footer-background-color: #05040f;
+  --ifm-hero-background-color: transparent;
+  --ifm-code-background: #0a081c;
+  --ifm-color-content: #eef2ff;
+  --ifm-color-content-secondary: #9ca3af;
+  --ifm-toc-border-color: #1e1b4b;
+  --ifm-navbar-shadow: none;
+  --ifm-hr-border-color: #1e1b4b;
+  --docusaurus-highlighted-code-line-bg: rgba(167, 139, 250, 0.14);
+}
+
+html,
+body,
+#__docusaurus {
+  background-color: #05040f;
+}
+
+.navbar {
+  border-bottom: 1px solid #1e1b4b;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.navbar__logo {
+  display: flex !important;
+  align-items: center;
+  height: 2.6rem !important;
+  width: 2.6rem !important;
+  margin-right: 0.7rem;
+}
+
+.navbar__logo img {
+  display: block !important;
+  height: 2.6rem !important;
+  width: 2.6rem !important;
+  object-fit: contain;
+}
+
+.navbar__title {
+  font-size: 0 !important;
+  letter-spacing: 0 !important;
+  color: transparent;
+}
+
+.navbar__title::after {
+  content: 'AACS';
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: #eef2ff;
+}
+
+.footer--dark {
+  background-color: #05040f;
+  border-top: 1px solid #1e1b4b;
+}
+
+.footer__copyright,
+.footer__title,
+.footer__link-item {
+  color: #9ca3af;
+}
+
+.footer__link-item:hover {
+  color: #eef2ff;
+}
+
+.hero--primary {
+  background: transparent;
+}
+
+.main-wrapper {
+  background: #05040f;
+}
+
+.navbar__color-mode-toggle {
+  display: none !important;
+}

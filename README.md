@@ -1,8 +1,10 @@
-# ALS Adaptive Control (Pedro Pathing Quickstart)
+# AACS (Autonomous Adaptive Control System)
 
-FTC Robot Controller **quickstart** for [Pedro Pathing](https://pedropathing.com) plus an **Autonomous Adaptive Control** layer: detect collisions, rebuild a Bézier back to the goal, and keep that curve out of illegal field zones.
+FTC Robot Controller **quickstart** for [Pedro Pathing](https://pedropathing.com) plus an **Autonomous Adaptive Control System (AACS)** layer: detect collisions, rebuild a Bézier back to the goal, and keep that curve out of illegal field zones.
 
 This repo is based on the Pedro Pathing Quickstart (FTC SDK **11.1**, DECODE 2025–2026) with team code under `TeamCode`.
+
+Full documentation site (Docusaurus): [aacs.vercel.app](https://aacs.vercel.app) (also [tropfan32.github.io/als-by-absolute](https://tropfan32.github.io/als-by-absolute/)). Source lives in `/docs-site`. Local preview: `cd docs-site && npm install && npm start`.
 
 ## What you get
 

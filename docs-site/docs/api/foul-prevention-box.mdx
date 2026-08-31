@@ -1,0 +1,44 @@
+---
+title: FoulPreventionBox API
+---
+
+# `FoulPreventionBox`
+
+Package: `org.firstinspires.ftc.teamcode.adaptive`
+
+## Constants
+
+| Name | Value |
+| --- | --- |
+| `PEDRO_FIELD_INCHES` | `144` |
+| `DEFAULT_CLEARANCE_INCHES` | `4` |
+| Max zones | `12` |
+| Max polygon vertices | `16` |
+
+## Field and zones (`init` only)
+
+```java
+public void setFieldBounds(double minX, double minY, double maxX, double maxY)
+public void setFieldBoundsEnabled(boolean fieldBoundsEnabled)
+public void setClearanceInches(double clearanceInches)
+public double getClearanceInches()
+public void addAabb(String name, double minX, double minY, double maxX, double maxY)
+public void addPolygon(String name, double[] xs, double[] ys)
+public void clearZones()
+public int getZoneCount()
+```
+
+## Queries (loop-safe)
+
+```java
+public boolean intersectsRestrictedZone(Point p1, Point p2)
+public boolean intersectsRestrictedZone(double x1, double y1, double x2, double y2)
+public boolean containsRestrictedPoint(double x, double y)
+public boolean quadraticBezierIntersectsRestricted(
+        double x0, double y0, double x1, double y1, double x2, double y2)
+public Point getAdjustedControlPoint(Point start, Point target, Point proposedControlPoint)
+```
+
+:::note
+`getAdjustedControlPoint` returns an internal scratch `Point`. Copy coordinates before the next call.
+:::

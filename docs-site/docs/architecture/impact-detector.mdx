@@ -1,0 +1,35 @@
+---
+title: ImpactDetector
+---
+
+# ImpactDetector
+
+`ImpactDetector` is a pure signal module. You feed XY linear acceleration each loop; it never touches hardware.
+
+## Magnitude
+
+```text
+A_ext = sqrt( (ax - ax_expected)² + (ay - ay_expected)² )
+```
+
+Expected terms default to **0**. Use the four-argument `update` if commanded path accel would otherwise exceed the G threshold (hard brake).
+
+`az` is ignored so gravity and pitch do not dominate.
+
+## Latch logic
+
+1. While `A_ext` stays **above** the threshold, accumulate wall-clock time (`System.nanoTime()`).
+2. If that contiguous window exceeds **50 ms** (default), `isImpactDetected()` becomes `true` and **stays true** until `resetImpactState()`.
+3. If `A_ext` drops before 50 ms, the timer resets — chassis vibration does not latch.
+
+Defaults: **1.5 g** ≈ 14.71 m/s² (`STANDARD_GRAVITY_MPS2 * 1.5`).
+
+:::tip
+Call `update` at OpMode rate (50–100 Hz). The window is **time-based**, not loop-count-based, so a slow loop still needs ~50 ms of real over-threshold samples.
+:::
+
+## Who resets the latch
+
+`AdaptivePathPlanner.update()` always calls `resetImpactState()` after it sees a latch (inject, cooldown drop, or disabled/null-target drop). If you use the detector without the planner, you must reset after you handle the event.
+
+See [API: ImpactDetector](../api/impact-detector.mdx) for every constructor and setter.
