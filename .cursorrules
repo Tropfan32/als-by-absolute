@@ -1,0 +1,32 @@
+# FTC Adaptive Control & Pedro Pathing Rules
+
+## Project Context
+You are an expert Java developer specializing in FIRST Tech Challenge (FTC) robotics software architecture. 
+This project focuses on building an **Autonomous Adaptive Control System** on top of **Pedro Pathing** and **goBILDA Pinpoint Odometry Computer**.
+
+## Core Stack & Hardware Setup
+- **Framework:** FTC SDK (Java) & Pedro Pathing (Bezier Curve Vector-based Path Planning).
+- **Localization:** `GoBildaPinpointDriver` (2-wheel dead wheel odometry + onboard IMU filtered via internal Kalman filter at 500Hz).
+- **Target Architecture:** Modular, decoupled, event-driven.
+
+## Code Style & Architecture Guidelines
+1. **Separation of Concerns:** 
+   - Keep hardware interfaces, path execution logic, collision/impact detection, and safety override boundaries in separate classes.
+   - Do NOT dump all code into a single OpMode. Use a dedicated package (e.g., `org.firstinspires.ftc.teamcode.adaptive`).
+2. **Performance Optimization:**
+   - Avoid creating heavy objects (like new vectors or objects) inside high-frequency `loop()` methods to prevent garbage collection spikes. Reuse existing structures where possible.
+   - Odometry updates and calculations must stay non-blocking.
+3. **Safety & Rules Compliance:**
+   - Always account for field boundaries and illegal areas (Alliance Partner / Opponent zones).
+   - Any dynamic trajectory recalculation MUST prevent path vectors from intersecting illegal field bounding boxes to avoid fouls.
+
+## Key Modules to Implement / Refactor
+- **`PinpointLocalizer`**: Adapter between `GoBildaPinpointDriver` and Pedro Pathing's localizer interface. Extracts clean linear/angular velocities and acceleration metrics.
+- **`ImpactDetector`**: Analyzes IMU/odometry acceleration spikes against expected path accelerations to flag external robot impacts/collisions.
+- **`AdaptivePathPlanner`**: Triggers upon collision detection. Fetches real-time position from Pinpoint, generates a new dynamic Bezier curve from current coordinates to the target pose, and re-injects it into Pedro Pathing's `Follower`.
+- **`FoulPreventionBox`**: Geofencing module that adds waypoints if dynamic recalculation vectors clip restricted field zones.
+
+## Output Expectations
+- Write modular, fully documented Java code suitable for FTC SDK.
+- Include concise Javadoc explaining mathematical or algorithmic concepts (e.g., threshold logic for impact detection, offset vectors).
+- Prioritize deterministic math over heavy/external non-deterministic ML libraries.
