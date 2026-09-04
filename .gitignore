@@ -82,3 +82,4 @@ lint/tmp/
 .vercel
 .env*
 .cursor/skills/
+docs-site/

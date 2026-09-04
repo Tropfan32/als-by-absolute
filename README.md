@@ -4,7 +4,7 @@ FTC Robot Controller **quickstart** for [Pedro Pathing](https://pedropathing.com
 
 This repo is based on the Pedro Pathing Quickstart (FTC SDK **11.1**, DECODE 2025–2026) with team code under `TeamCode`.
 
-Full documentation site (Docusaurus): [aacs.vercel.app](https://aacs.vercel.app) (also [aqqusr.github.io/aacs](https://aqqusr.github.io/aacs/)). Source lives in `/docs-site`. Local preview: `cd docs-site && npm install && npm start`. Brand: `#1E1E1E` field, logo purple circular washes, white type, Benzin on the hero.
+Full documentation site (separate repo): [aqqusr/aacssite](https://github.com/aqqusr/aacssite) — live at [aacs.vercel.app](https://aacs.vercel.app). This repository is **robot code only** (Android Studio / FTC SDK). Brand on the site: `#1E1E1E` field, logo purple circular washes, white type.
 
 ## What you get
 
@@ -133,7 +133,6 @@ TeamCode/src/main/java/org/firstinspires/ftc/teamcode/
   pedroPathing/
     Constants.java      // Follower + Pinpoint
     Tuning.java         // Pedro’s built-in tuners
-docs-site/                  // Docusaurus docs + landing
 ```
 
 ## FTC SDK notice
