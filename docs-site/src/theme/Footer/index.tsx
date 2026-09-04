@@ -14,7 +14,7 @@ const PROJECT = [
 
 const CONTACT = [
   {label: 'Instagram', href: 'https://www.instagram.com/ftc_sunrise'},
-  {label: 'Cooperate', href: 'mailto:kairatnariman0001@gmail.com'},
+  {label: 'Email', href: 'mailto:kairatnariman0001@gmail.com'},
   {label: 'News', href: 'https://t.me/sunriseeeetg'},
 ];
 

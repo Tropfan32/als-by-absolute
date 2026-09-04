@@ -70,8 +70,8 @@ const config = {
         hideOnScroll: false,
         logo: {
           alt: 'AACS',
-          src: 'img/aacs-mark.svg',
-          srcDark: 'img/aacs-mark.svg',
+          src: 'img/aacs-mark.png',
+          srcDark: 'img/aacs-mark.png',
           href: '/',
           target: '_self',
         },
@@ -131,7 +131,7 @@ const config = {
                 href: 'https://www.instagram.com/ftc_sunrise',
               },
               {
-                label: 'Cooperate',
+                label: 'Email',
                 href: 'mailto:kairatnariman0001@gmail.com',
               },
               {

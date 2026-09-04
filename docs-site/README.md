@@ -8,6 +8,9 @@ npm install
 npm start
 ```
 
-Production URL (GitHub Pages): `https://tropfan32.github.io/als-by-absolute/`
+Production:
 
-`npm run build` writes static files to `build/`. Deploy is automatic on `master` via `../.github/workflows/deploy-docs.yml`.
+- Vercel: `https://aacs.vercel.app`
+- GitHub Pages: `https://tropfan32.github.io/als-by-absolute/`
+
+`npm run build` writes static files to `build/`. Deploy is automatic on `master` via `../.github/workflows/deploy-docs.yml`. On Vercel, build from the repo root so `docs-site` exists (or set the project root to `docs-site`).

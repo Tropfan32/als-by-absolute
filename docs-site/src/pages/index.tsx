@@ -1,5 +1,5 @@
 import type {ReactNode} from 'react';
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useState} from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
@@ -16,18 +16,45 @@ const PHRASES = [
   'Zero-GC execution',
 ];
 
+const DOC_CARDS = [
+  {
+    title: 'Getting started',
+    body: 'Install AACS, wire Pinpoint, and run the first OpMode loop.',
+    to: '/docs/getting-started/introduction',
+  },
+  {
+    title: 'Architecture',
+    body: 'How the detector, planner, and geofence stay decoupled at 100+ Hz.',
+    to: '/docs/architecture/overview',
+  },
+  {
+    title: 'Setup guides',
+    body: 'Calibration, OpMode integration, and recovery tuning.',
+    to: '/docs/setup/pinpoint-calibration',
+  },
+  {
+    title: 'API reference',
+    body: 'Constructors, thresholds, and method contracts for every module.',
+    to: '/docs/api/impact-detector',
+  },
+];
+
 function CyclingPhrase() {
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (reduce.matches) {
+      return undefined;
+    }
     const id = window.setInterval(() => {
       setVisible(false);
       window.setTimeout(() => {
         setIndex((i) => (i + 1) % PHRASES.length);
         setVisible(true);
-      }, 280);
-    }, 2800);
+      }, 220);
+    }, 3200);
     return () => window.clearInterval(id);
   }, []);
 
@@ -44,9 +71,9 @@ function CodeWindow() {
   return (
     <div className={styles.codeCard}>
       <div className={styles.codeBar}>
-        <span className={styles.dot} />
-        <span className={clsx(styles.dot, styles.dotAmber)} />
-        <span className={clsx(styles.dot, styles.dotGreen)} />
+        <span className={styles.dot} aria-hidden="true" />
+        <span className={clsx(styles.dot, styles.dotAmber)} aria-hidden="true" />
+        <span className={clsx(styles.dot, styles.dotGreen)} aria-hidden="true" />
         <span className={styles.codeTab}>AutonomousLoop.java</span>
       </div>
       <pre className={styles.codeBody}>
@@ -78,75 +105,32 @@ function CodeWindow() {
   );
 }
 
-function LavaLamp() {
-  const rootRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const root = rootRef.current;
-    if (!root) {
-      return;
-    }
-
-    let raf = 0;
-    const apply = () => {
-      const max = Math.max(
-        1,
-        document.documentElement.scrollHeight - window.innerHeight,
-      );
-      const t = Math.min(1, Math.max(0, window.scrollY / max));
-      root.style.setProperty('--t', t.toFixed(4));
-    };
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = window.requestAnimationFrame(apply);
-    };
-
-    apply();
-    window.addEventListener('scroll', onScroll, {passive: true});
-    window.addEventListener('resize', onScroll, {passive: true});
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    };
-  }, []);
-
-  return (
-    <div className={styles.lava} ref={rootRef} aria-hidden="true">
-      <div className={clsx(styles.lavaTrack, styles.lavaPurple)}>
-        <span className={styles.lavaBlob} />
-      </div>
-      <div className={clsx(styles.lavaTrack, styles.lavaPurpleSplit)}>
-        <span className={clsx(styles.lavaBlob, styles.lavaBlobSmall)} />
-      </div>
-      <div className={clsx(styles.lavaTrack, styles.lavaPurpleSplitB)}>
-        <span className={clsx(styles.lavaBlob, styles.lavaBlobSmall)} />
-      </div>
-      <div className={clsx(styles.lavaTrack, styles.lavaBlue)}>
-        <span className={clsx(styles.lavaBlob, styles.lavaBlobBlue)} />
-      </div>
-    </div>
-  );
-}
-
 function Hero() {
   return (
     <header className={styles.hero}>
       <div className={clsx('container', styles.heroInner)}>
-        <Heading as="h1" className={styles.heroTitle}>
-          AACS <span className={styles.gradientText}>Framework</span>
+        <Heading
+          as="h1"
+          className={styles.heroTitle}
+          style={{
+            fontFamily: 'Benzin, sans-serif',
+            fontWeight: 700,
+            letterSpacing: '0.06em',
+            lineHeight: 0.9,
+          }}>
+          AACS Framework
         </Heading>
         <p className={styles.heroSubtitle}>
-          Ultra-fast, zero-GC collision recovery - by Absolute robotics for
-          Pedro Pathing
+          Ultra-fast, zero-GC collision recovery — by Absolute robotics for
+          Pedro Pathing.
         </p>
         <div className={styles.ctaRow}>
           <Link
             className={styles.ctaPrimary}
             to="/docs/getting-started/introduction">
-            {'Get Started ->'}
+            Get started
           </Link>
-          <Link className={styles.ctaGlass} href={GITHUB}>
+          <Link className={styles.ctaGhost} href={GITHUB}>
             View on GitHub
           </Link>
         </div>
@@ -157,23 +141,46 @@ function Hero() {
 
 function Showcase() {
   return (
-    <section className={styles.showcase}>
-      <div className={clsx('container', styles.showcaseInner)}>
+    <section className={styles.section} aria-labelledby="companion-heading">
+      <div className={clsx('container', styles.sectionInner)}>
         <div className={styles.showcaseGrid}>
           <div className={styles.showcaseCopy}>
-            <p className={styles.kicker}>COMPANION TOOL</p>
-            <CyclingPhrase />
+            <p className={styles.kicker}>Companion tool</p>
+            <div id="companion-heading">
+              <CyclingPhrase />
+            </div>
             <p className={styles.showcaseBody}>
               AACS watches Pinpoint acceleration every cycle, latches a real
               impact, and injects a velocity-aware quadratic Bézier back to the
               live target without pausing Pedro&apos;s follower. Recovery paths
               use the same <code>Path</code> / <code>BezierCurve</code> types as{' '}
               <Link href={VISUALIZER}>Pedro Pathing Visualizer</Link>, so
-              Visualizer-authored routines and AACS replans stay fully
-              compatible.
+              Visualizer-authored routines and AACS replans stay compatible.
             </p>
           </div>
           <CodeWindow />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DocsIndex() {
+  return (
+    <section className={styles.section} aria-labelledby="docs-heading">
+      <div className={clsx('container', styles.sectionInner)}>
+        <p className={styles.kicker}>Documentation</p>
+        <Heading as="h2" id="docs-heading" className={styles.sectionTitle}>
+          Start from a category
+        </Heading>
+        <div className={styles.docGrid}>
+          {DOC_CARDS.map((card) => (
+            <Link key={card.to} className={styles.docCard} to={card.to}>
+              <h3 className={styles.docTitle}>{card.title}</h3>
+              <p className={styles.docBody}>{card.body}</p>
+              <span className={styles.docCta}>Open docs</span>
+            </Link>
+          ))}
         </div>
       </div>
     </section>
@@ -184,9 +191,9 @@ export default function Home(): ReactNode {
   return (
     <Layout description="Ultra-fast, zero-GC collision recovery - by Absolute robotics for Pedro Pathing">
       <div className={styles.page}>
-        <LavaLamp />
         <Hero />
         <Showcase />
+        <DocsIndex />
       </div>
     </Layout>
   );

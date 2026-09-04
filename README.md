@@ -4,7 +4,7 @@ FTC Robot Controller **quickstart** for [Pedro Pathing](https://pedropathing.com
 
 This repo is based on the Pedro Pathing Quickstart (FTC SDK **11.1**, DECODE 2025–2026) with team code under `TeamCode`.
 
-Full documentation site (Docusaurus): [aacs.vercel.app](https://aacs.vercel.app) (also [tropfan32.github.io/als-by-absolute](https://tropfan32.github.io/als-by-absolute/)). Source lives in `/docs-site`. Local preview: `cd docs-site && npm install && npm start`.
+Full documentation site (Docusaurus): [aacs.vercel.app](https://aacs.vercel.app) (also [tropfan32.github.io/als-by-absolute](https://tropfan32.github.io/als-by-absolute/)). Source lives in `/docs-site`. Local preview: `cd docs-site && npm install && npm start`. Brand: `#1E1E1E` field, logo purple circular washes, white type, Benzin on the hero.
 
 ## What you get
 
@@ -15,6 +15,7 @@ Full documentation site (Docusaurus): [aacs.vercel.app](https://aacs.vercel.app)
 | `AdaptivePathPlanner` | `adaptive/` | On hit: new quadratic Bézier from live pose → target |
 | `FoulPreventionBox` | `adaptive/` | Geofence: field walls + Alliance/opponent AABBs |
 | `AdaptiveTestOpMode` | `adaptive/` | TeleOp to exercise the full pipeline |
+| Curve Drive Test | `aacs.java` | Auto: one quadratic Bézier + AACS watch / force replan |
 
 Loop contract (do not reorder):
 
@@ -68,6 +69,10 @@ Keep the robot **still** through OpMode `init` so the Pinpoint IMU can finish ca
 
 Telemetry shows pose, accel (m/s² and g), impact latch, replan count, and cooldown.
 
+### Curve Drive Test (Autonomous)
+
+Driver Station → Autonomous → **Curve Drive Test**. Robot start ~`(24, 24)` in, heading 0°. PLAY follows a quadratic `(24,24) → (96,24) → (96,72)`. Gamepad 1 **A** restarts the curve from the live pose; **X** calls `forceReplan()` to the end pose.
+
 To bump a robot into a real replan: start Alpha with **A**, then shove the chassis. After ~50 ms above **1.5 g** horizontal, the planner injects a quadratic Bézier to the current target (with a **300 ms** cooldown so it does not thrash).
 
 ## Use it in your own Auto
@@ -118,6 +123,7 @@ Call `planner.setTargetPose(...)` whenever Auto changes goals (intake → score 
 
 ```text
 TeamCode/src/main/java/org/firstinspires/ftc/teamcode/
+  aacs.java                 // Curve Drive Test OpMode
   adaptive/
     ImpactDetector.java
     AdaptivePathPlanner.java
@@ -127,6 +133,7 @@ TeamCode/src/main/java/org/firstinspires/ftc/teamcode/
   pedroPathing/
     Constants.java      // Follower + Pinpoint
     Tuning.java         // Pedro’s built-in tuners
+docs-site/                  // Docusaurus docs + landing
 ```
 
 ## FTC SDK notice
