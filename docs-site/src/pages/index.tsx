@@ -7,7 +7,7 @@ import Heading from '@theme/Heading';
 
 import styles from './index.module.css';
 
-const GITHUB = 'https://github.com/Tropfan32/als-by-absolute';
+const GITHUB = 'https://github.com/aqqusr/aacs';
 const VISUALIZER = 'https://visualizer.pedropathing.com';
 
 const PHRASES = [

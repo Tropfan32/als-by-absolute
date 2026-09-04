@@ -4,7 +4,7 @@ FTC Robot Controller **quickstart** for [Pedro Pathing](https://pedropathing.com
 
 This repo is based on the Pedro Pathing Quickstart (FTC SDK **11.1**, DECODE 2025–2026) with team code under `TeamCode`.
 
-Full documentation site (Docusaurus): [aacs.vercel.app](https://aacs.vercel.app) (also [tropfan32.github.io/als-by-absolute](https://tropfan32.github.io/als-by-absolute/)). Source lives in `/docs-site`. Local preview: `cd docs-site && npm install && npm start`. Brand: `#1E1E1E` field, logo purple circular washes, white type, Benzin on the hero.
+Full documentation site (Docusaurus): [aacs.vercel.app](https://aacs.vercel.app) (also [aqqusr.github.io/aacs](https://aqqusr.github.io/aacs/)). Source lives in `/docs-site`. Local preview: `cd docs-site && npm install && npm start`. Brand: `#1E1E1E` field, logo purple circular washes, white type, Benzin on the hero.
 
 ## What you get
 
@@ -37,7 +37,7 @@ Pedro docs: [pedropathing.com](https://pedropathing.com/docs/pathing/examples/co
 ## Open the project
 
 ```text
-git clone https://github.com/Tropfan32/als-by-absolute.git
+git clone https://github.com/aqqusr/aacs.git
 ```
 
 In Android Studio: **Open** the cloned folder (Gradle project). Let it sync, then deploy **TeamCode** + **FtcRobotController** to the Robot Controller.

@@ -1,11 +1,11 @@
 // @ts-check
 const {themes: prismThemes} = require('prism-react-renderer');
 
-const isVercel = Boolean(process.env.VERCEL);
+const isHostedRoot = Boolean(process.env.VERCEL || process.env.CF_PAGES);
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'AACS Framework - Autonomous Adaptive Control System',
+  title: 'aacs',
   tagline: 'Autonomous Adaptive Control System',
   favicon: 'img/favicon.ico',
 
@@ -13,11 +13,11 @@ const config = {
     v4: true,
   },
 
-  url: isVercel ? 'https://aacs.vercel.app' : 'https://tropfan32.github.io',
-  baseUrl: isVercel ? '/' : '/als-by-absolute/',
+  url: isHostedRoot ? 'https://aacs.vercel.app' : 'https://aqqusr.github.io',
+  baseUrl: isHostedRoot ? '/' : '/aacs/',
 
-  organizationName: 'Tropfan32',
-  projectName: 'als-by-absolute',
+  organizationName: 'aqqusr',
+  projectName: 'aacs',
   deploymentBranch: 'gh-pages',
   trailingSlash: false,
 
@@ -43,7 +43,7 @@ const config = {
           sidebarPath: './sidebars.ts',
           routeBasePath: 'docs',
           editUrl:
-            'https://github.com/Tropfan32/als-by-absolute/tree/master/docs-site/',
+            'https://github.com/aqqusr/aacs/tree/master/docs-site/',
         },
         blog: false,
         theme: {
@@ -83,7 +83,7 @@ const config = {
             label: 'Docs',
           },
           {
-            href: 'https://github.com/Tropfan32/als-by-absolute',
+            href: 'https://github.com/aqqusr/aacs',
             label: 'GitHub',
             position: 'right',
           },
@@ -115,7 +115,7 @@ const config = {
             items: [
               {
                 label: 'GitHub',
-                href: 'https://github.com/Tropfan32/als-by-absolute',
+                href: 'https://github.com/aqqusr/aacs',
               },
               {
                 label: 'Pedro Pathing',

@@ -8,7 +8,7 @@ const DOCS = [
 ];
 
 const PROJECT = [
-  {label: 'GitHub', href: 'https://github.com/Tropfan32/als-by-absolute'},
+  {label: 'GitHub', href: 'https://github.com/aqqusr/aacs'},
   {label: 'Pedro Pathing', href: 'https://pedropathing.com'},
 ];
 
